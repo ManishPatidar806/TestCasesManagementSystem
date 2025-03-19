@@ -7,6 +7,7 @@ import com.testcase.test_case_management_system.Enum.Status;
 
 import jakarta.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;

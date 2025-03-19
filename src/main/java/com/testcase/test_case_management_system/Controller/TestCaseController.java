@@ -26,7 +26,7 @@ public class TestCaseController {
 
     @GetMapping("/testcases")
     public ResponseEntity<TestCasesResponseDTO> getAllTestCases(){
-       List<TestCaseDTO> testCases = testCaseService.findAllTestCases();
+        List<TestCaseDTO> testCases = testCaseService.findAllTestCases();
     TestCasesResponseDTO responseDTO = new TestCasesResponseDTO();
     responseDTO.setList(testCases);
     responseDTO.setMessage("List Fetch Successfully");
@@ -39,7 +39,7 @@ public class TestCaseController {
     * */
     @PostMapping("/testcases")
     public ResponseEntity<CommonResponse> createTestCases(@RequestBody @Valid TestCaseDTO testCaseDTO ){
-        TestCaseDTO testCase = testCaseService.createTestCase(testCaseDTO);
+        testCaseService.createTestCase(testCaseDTO);
         CommonResponse responseDTO = new CommonResponse();
         responseDTO.setMessage("Data Created Successfully");
         responseDTO.setStatus(true);
@@ -63,12 +63,17 @@ public class TestCaseController {
 * Delete testCase By Id
 * */
 @DeleteMapping("/testcases/{id}")
-public ResponseEntity<CommonResponse> deleteTestCase(@PathVariable String id){
+public ResponseEntity<CommonResponse> deleteTestCase(@PathVariable String id) throws Exception {
     boolean success  = testCaseService.removeTestCasebyId(id);
-    CommonResponse responseDTO = new CommonResponse();
-    responseDTO.setMessage("Data Remove Successfully");
-    responseDTO.setStatus(true);
-    return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
+    CommonResponse commonResponse = new CommonResponse();
+    if(success){
+        commonResponse.setMessage("Data Remove Successfully");
+        commonResponse.setStatus(true);
+    }else {
+        commonResponse.setMessage("Data Remove Failed");
+        commonResponse.setStatus(false);
+    }
+    return new ResponseEntity<>(commonResponse, HttpStatus.ACCEPTED);
 }
 
     /*
@@ -76,11 +81,17 @@ public ResponseEntity<CommonResponse> deleteTestCase(@PathVariable String id){
      * */
 
     @PutMapping("/testcases/{id}")
-    public ResponseEntity<CommonResponse> updateTestCase(@PathVariable String id ,@RequestBody TestCaseDTO testCaseDTO){
+    public ResponseEntity<CommonResponse> updateTestCase(@PathVariable String id ,@RequestBody @Valid TestCaseDTO testCaseDTO){
         boolean response = testCaseService.updateTestCasebyId(id,testCaseDTO);
         CommonResponse commonResponse = new CommonResponse();
-        commonResponse.setMessage("Update TestCase Successfully");
-        commonResponse.setStatus(true);
+        if(response){
+            commonResponse.setMessage("Update TestCase Successfully");
+            commonResponse.setStatus(true);
+        }else {
+            commonResponse.setMessage("Update TestCase Failed");
+            commonResponse.setStatus(false);
+        }
+
         return new ResponseEntity<>(commonResponse, HttpStatus.ACCEPTED);
     }
 
