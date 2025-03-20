@@ -1,18 +1,20 @@
 package com.testcase.test_case_management_system.Model;
 
-import com.testcase.test_case_management_system.CustomAnnotation.ValueOfEnum;
+
 import com.testcase.test_case_management_system.Enum.Priority;
 import com.testcase.test_case_management_system.Enum.Status;
 
 
 import jakarta.validation.constraints.NotEmpty;
 
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Document("test_cases")
@@ -28,16 +30,14 @@ public class TestCase {
     private String description;
 
     @NotEmpty
-    @ValueOfEnum(enumClass = Status.class, message = "Allowed values: Pending,InProgress,Passed,Failed")
     private Status status;
 
     @NotEmpty
-    @ValueOfEnum(enumClass = Priority.class , message = "Allowed values: Low,Medium,High")
     private Priority priority;
 
-    private Date  createdAt;
+    private LocalDate createdAt;
 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 
 
@@ -73,25 +73,26 @@ public class TestCase {
         this.priority = priority;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public String getId() {
         return id;

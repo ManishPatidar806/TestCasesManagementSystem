@@ -19,46 +19,36 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler  {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse> handleResourceNotFoundException(ResourceNotFoundException exception ){
-       ApiResponse response = new ApiResponse();
+    public ResponseEntity<ApiResponse> handleResourceNotFoundException(ResourceNotFoundException exception) {
+        ApiResponse response = new ApiResponse();
         response.setMessage(exception.getMessage());
         response.setStatus(false);
-        return new ResponseEntity<>(response , HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception){
-    Map<String ,String> errors =new HashMap<>();
-    for (FieldError err : exception.getBindingResult().getFieldErrors()){
-        errors.put(err.getField(),err.getDefaultMessage());
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+        Map<String, String> errors = new HashMap<>();
+        for (FieldError err : exception.getBindingResult().getFieldErrors()) {
+            errors.put(err.getField(), err.getDefaultMessage());
+        }
+        ErrorResponse response = new ErrorResponse();
+        response.setMessage(errors);
+        response.setStatus(false);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
-    ErrorResponse response = new ErrorResponse();
-    response.setMessage(errors);
-    response.setStatus(false);
-    return new ResponseEntity<>(response ,HttpStatus.BAD_REQUEST);
-}
-
-//
-//@ExceptionHandler(value = HttpMessageNotReadableException.class)
-//    public ResponseEntity<ApiResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception){
-//       ApiResponse response =new ApiResponse();
-//       response.setMessage(exception.getMessage());
-//       response.setStatus(false);
-//       return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-//}
 
 
-@ExceptionHandler(value = CommonException.class)
-    public ResponseEntity<ApiResponse> handleCommonException(CommonException ex){
-    ApiResponse response = new ApiResponse();
-    response.setMessage(ex.getMessage());
-    response.setStatus(false);
-    return new ResponseEntity<>(response , HttpStatus.INTERNAL_SERVER_ERROR);
-}
-
+    @ExceptionHandler(value = CommonException.class)
+    public ResponseEntity<ApiResponse> handleCommonException(CommonException ex) {
+        ApiResponse response = new ApiResponse();
+        response.setMessage(ex.getMessage());
+        response.setStatus(false);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
 }

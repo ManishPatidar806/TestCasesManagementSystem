@@ -6,6 +6,7 @@ import com.testcase.test_case_management_system.Enum.Status;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TestCaseDTO {
@@ -17,15 +18,15 @@ public class TestCaseDTO {
 
     @NotNull(message = "Status Can't be Null")
     @ValueOfEnum(enumClass = Status.class, message = "Allowed values: Pending,InProgress,Passed,Failed")
-    private Status status;
+    private String status;
 
     @NotNull(message = "Priority Can't be Null")
     @ValueOfEnum(enumClass = Priority.class , message = "Allowed values: Low,Medium,High")
-    private Priority priority;
+    private String priority;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
     public String getId() {
         return id;
@@ -51,35 +52,36 @@ public class TestCaseDTO {
         this.description = description;
     }
 
-    public Status getStatus() {
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Priority priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

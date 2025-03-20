@@ -10,13 +10,13 @@ public interface TestCaseService {
 
     public List<TestCaseDTO> findAllTestCases();
 
-    public void createTestCase(TestCaseDTO testCaseDto);
+    public TestCaseDTO createTestCase(TestCaseDTO testCaseDto);
 
     public TestCaseDTO findTestCasebyId(String id);
 
-    public boolean removeTestCasebyId(String id) throws Exception;
+    public TestCaseDTO removeTestCasebyId(String id) throws Exception;
 
-    public boolean updateTestCasebyId(String id , TestCaseDTO testCaseDTO);
+    public TestCaseDTO updateTestCasebyId(String id , TestCaseDTO testCaseDTO);
 
 
 }
