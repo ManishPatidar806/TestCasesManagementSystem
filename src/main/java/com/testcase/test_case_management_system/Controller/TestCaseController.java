@@ -13,32 +13,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "TestCase Controller", description = "All Operation related to test cases")
 @RestController
 @RequestMapping("/api")
 public class TestCaseController {
 
-
-    //    private static final Logger logger = LoggerFactory.getLogger(TestCaseController.class);
-
+    private  Logger logger = LoggerFactory.getLogger(TestCaseController.class);
 
     @Autowired
     private TestCaseService testCaseService;
 
     @Operation(summary = "Get all test cases", description = "Fetches all the test cases")
     @GetMapping("/testcases")
-    public ResponseEntity<TestCasesResponseDTO> getAllTestCases() throws CommonException {
+    public ResponseEntity<TestCasesResponseDTO> getAllTestCases(
+            @RequestParam Optional<String> status,
+            @RequestParam Optional<String> priority,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) throws CommonException {
         TestCasesResponseDTO responseDTO = new TestCasesResponseDTO();
-        try {
-            List<TestCaseDTO> testCases = testCaseService.findAllTestCases();
+            List<TestCaseDTO> testCases = testCaseService.findAllTestCases(status, priority, page, size);
             responseDTO.setList(testCases);
-            responseDTO.setMessage("List Fetch Successfully");
+            logger.info("TestCases Fetch Successfully");
+            responseDTO.setMessage("TestCases Fetch Successfully");
             responseDTO.setStatus(true);
             return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-        } catch (Exception e) {
-            throw new CommonException("TestCases Fetches Failed");
-        }
+
     }
 
     /*
@@ -51,6 +53,7 @@ public class TestCaseController {
         try {
             TestCaseDTO responseDto = testCaseService.createTestCase(testCaseDTO);
             responseDTO.setMessage("TestCase Created Successfully");
+            logger.info("TestCases Created Successfully");
             responseDTO.setStatus(true);
             responseDTO.setTestCaseDTO(responseDto);
             return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
@@ -68,7 +71,8 @@ public class TestCaseController {
     public ResponseEntity<TestCaseResponseDTO> getTestCase(@PathVariable String id) {
         TestCaseDTO testCaseDto = testCaseService.findTestCasebyId(id);
         TestCaseResponseDTO responseDTO = new TestCaseResponseDTO();
-        responseDTO.setMessage("Data Fetch Successfully");
+        responseDTO.setMessage("TestCase Fetch Successfully");
+        logger.info("TestCase Fetch Successfully");
         responseDTO.setTestCaseDTO(testCaseDto);
         responseDTO.setStatus(true);
         return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
@@ -84,7 +88,8 @@ public class TestCaseController {
         try {
             TestCaseDTO testCaseDTO = testCaseService.removeTestCasebyId(id);
             responseDTO.setTestCaseDTO(testCaseDTO);
-            responseDTO.setMessage("Data Remove Successfully");
+            responseDTO.setMessage("TestCase Remove Successfully");
+            logger.info("TestCases Remove Successfully");
             responseDTO.setStatus(true);
             return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -104,6 +109,7 @@ public class TestCaseController {
             TestCaseDTO response = testCaseService.updateTestCasebyId(id, testCaseDTO);
             TestCaseResponseDTO responseDTO = new TestCaseResponseDTO();
             responseDTO.setMessage("TestCase Updated Successfully");
+            logger.info("TestCase Updated Successfully");
             responseDTO.setStatus(true);
             responseDTO.setTestCaseDTO(response);
             return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);

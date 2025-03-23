@@ -7,6 +7,10 @@ import com.testcase.test_case_management_system.Model.TestCase;
 import com.testcase.test_case_management_system.Repository.TestCaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,8 +30,19 @@ public class TestCaseSeviceImpl implements TestCaseService {
 
 
     @Override
-    public List<TestCaseDTO> findAllTestCases() {
-        List<TestCase> testCase = testCaseRepository.findAll();
+    public List<TestCaseDTO> findAllTestCases(Optional<String> status, Optional<String> priority, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        Page<TestCase> testCase;
+        if (status.isPresent() && priority.isPresent()) {
+            testCase = testCaseRepository.findByStatusAndPriority(status, priority, pageable);
+        } else if (status.isPresent()) {
+            testCase = testCaseRepository.findByStatus(status, pageable);
+        } else if (priority.isPresent()) {
+            testCase = testCaseRepository.findByPriority(priority, pageable);
+        } else {
+            testCase = testCaseRepository.findAll(pageable);
+        }
+
         if (testCase.isEmpty()) {
             throw new ResourceNotFoundException("No Test case Found");
         }

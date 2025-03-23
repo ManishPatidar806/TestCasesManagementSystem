@@ -43,11 +43,12 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(value = CommonException.class)
-    public ResponseEntity<ApiResponse> handleCommonException(CommonException ex) {
-        ApiResponse response = new ApiResponse();
-        response.setMessage(ex.getMessage());
-        response.setStatus(false);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    public Exception handleCommonException(CommonException ex) {
+//        ApiResponse response = new ApiResponse();
+//        response.setMessage(ex.getMessage());
+//        response.setStatus(false);
+//        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        return ex;
     }
 
 

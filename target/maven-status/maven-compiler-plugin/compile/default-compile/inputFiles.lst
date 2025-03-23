@@ -1,5 +1,5 @@
 /media/mohit/Projects/Company_Project/Test Case Management System/src/main/java/com/testcase/test_case_management_system/Config/Mapper.java
-/media/mohit/Projects/Company_Project/Test Case Management System/src/main/java/com/testcase/test_case_management_system/Config/SwaggerConfig.java
+/media/mohit/Projects/Company_Project/Test Case Management System/src/main/java/com/testcase/test_case_management_system/Config/OpenApiConfig.java
 /media/mohit/Projects/Company_Project/Test Case Management System/src/main/java/com/testcase/test_case_management_system/Controller/TestCaseController.java
 /media/mohit/Projects/Company_Project/Test Case Management System/src/main/java/com/testcase/test_case_management_system/CustomAnnotation/ValueOfEnum.java
 /media/mohit/Projects/Company_Project/Test Case Management System/src/main/java/com/testcase/test_case_management_system/CustomAnnotation/ValueOfEnumValidator.java

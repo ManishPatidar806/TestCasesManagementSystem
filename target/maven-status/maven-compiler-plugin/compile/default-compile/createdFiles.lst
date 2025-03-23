@@ -3,7 +3,7 @@ com/testcase/test_case_management_system/TestCaseManagementSystemApplication.cla
 com/testcase/test_case_management_system/CustomAnnotation/ValueOfEnumValidator.class
 com/testcase/test_case_management_system/Controller/TestCaseController.class
 com/testcase/test_case_management_system/Dto/CommonResponse.class
-com/testcase/test_case_management_system/Config/SwaggerConfig.class
+com/testcase/test_case_management_system/Config/OpenApiConfig.class
 com/testcase/test_case_management_system/Enum/Priority.class
 com/testcase/test_case_management_system/Enum/Status.class
 com/testcase/test_case_management_system/Exception/GlobalExceptionHandler.class
