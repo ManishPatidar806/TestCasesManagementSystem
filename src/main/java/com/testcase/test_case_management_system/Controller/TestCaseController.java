@@ -1,6 +1,7 @@
 package com.testcase.test_case_management_system.Controller;
 
 import com.testcase.test_case_management_system.Dto.*;
+import com.testcase.test_case_management_system.Exception.CommonException;
 import com.testcase.test_case_management_system.Service.TestCaseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,7 +21,7 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class TestCaseController {
 
-    private  Logger logger = LoggerFactory.getLogger(TestCaseController.class);
+    private final Logger logger = LoggerFactory.getLogger(TestCaseController.class);
 
     @Autowired
     private TestCaseService testCaseService;
@@ -34,12 +35,12 @@ public class TestCaseController {
             @RequestParam(defaultValue = "10") int size
     ) throws CommonException {
         TestCasesResponseDTO responseDTO = new TestCasesResponseDTO();
-            List<TestCaseDTO> testCases = testCaseService.findAllTestCases(status, priority, page, size);
-            responseDTO.setList(testCases);
-            logger.info("TestCases Fetch Successfully");
-            responseDTO.setMessage("TestCases Fetch Successfully");
-            responseDTO.setStatus(true);
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        List<TestCaseDTO> testCases = testCaseService.findAllTestCases(status, priority, page, size);
+        responseDTO.setList(testCases);
+        logger.info("TestCases Fetch Successfully");
+        responseDTO.setMessage("TestCases Fetch Successfully");
+        responseDTO.setStatus(true);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
 
     }
 
@@ -50,16 +51,13 @@ public class TestCaseController {
     @PostMapping("/testcases")
     public ResponseEntity<TestCaseResponseDTO> createTestCases(@RequestBody @Valid TestCaseDTO testCaseDTO) throws CommonException {
         TestCaseResponseDTO responseDTO = new TestCaseResponseDTO();
-        try {
-            TestCaseDTO responseDto = testCaseService.createTestCase(testCaseDTO);
-            responseDTO.setMessage("TestCase Created Successfully");
-            logger.info("TestCases Created Successfully");
-            responseDTO.setStatus(true);
-            responseDTO.setTestCaseDTO(responseDto);
-            return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            throw new CommonException("TestCase Created Failed");
-        }
+
+        TestCaseDTO responseDto = testCaseService.createTestCase(testCaseDTO);
+        responseDTO.setMessage("TestCase Created Successfully");
+        logger.info("TestCases Created Successfully");
+        responseDTO.setStatus(true);
+        responseDTO.setTestCaseDTO(responseDto);
+        return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
 
     }
 
@@ -83,18 +81,16 @@ public class TestCaseController {
      * */
     @Operation(summary = "Delete test case", description = "Delete test case by its id")
     @DeleteMapping("/testcases/{id}")
-    public ResponseEntity<TestCaseResponseDTO> deleteTestCase(@PathVariable String id) throws CommonException {
+    public ResponseEntity<TestCaseResponseDTO> deleteTestCase(@PathVariable String id) throws Exception {
         TestCaseResponseDTO responseDTO = new TestCaseResponseDTO();
-        try {
-            TestCaseDTO testCaseDTO = testCaseService.removeTestCasebyId(id);
-            responseDTO.setTestCaseDTO(testCaseDTO);
-            responseDTO.setMessage("TestCase Remove Successfully");
-            logger.info("TestCases Remove Successfully");
-            responseDTO.setStatus(true);
-            return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            throw new CommonException("Remove TestCase Failed");
-        }
+
+        TestCaseDTO testCaseDTO = testCaseService.removeTestCasebyId(id);
+        responseDTO.setTestCaseDTO(testCaseDTO);
+        responseDTO.setMessage("TestCase Remove Successfully");
+        logger.info("TestCases Remove Successfully");
+        responseDTO.setStatus(true);
+        return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
+
 
     }
 
@@ -105,17 +101,15 @@ public class TestCaseController {
     @Operation(summary = "Update Test Case", description = "Update test case by its id")
     @PutMapping("/testcases/{id}")
     public ResponseEntity<TestCaseResponseDTO> updateTestCase(@PathVariable String id, @RequestBody @Valid TestCaseDTO testCaseDTO) throws CommonException {
-        try {
-            TestCaseDTO response = testCaseService.updateTestCasebyId(id, testCaseDTO);
-            TestCaseResponseDTO responseDTO = new TestCaseResponseDTO();
-            responseDTO.setMessage("TestCase Updated Successfully");
-            logger.info("TestCase Updated Successfully");
-            responseDTO.setStatus(true);
-            responseDTO.setTestCaseDTO(response);
-            return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
-        } catch (Exception e) {
-            throw new CommonException("Update Data Failed");
-        }
+
+        TestCaseDTO response = testCaseService.updateTestCasebyId(id, testCaseDTO);
+        TestCaseResponseDTO responseDTO = new TestCaseResponseDTO();
+        responseDTO.setMessage("TestCase Updated Successfully");
+        logger.info("TestCase Updated Successfully");
+        responseDTO.setStatus(true);
+        responseDTO.setTestCaseDTO(response);
+        return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
+
     }
 
 
