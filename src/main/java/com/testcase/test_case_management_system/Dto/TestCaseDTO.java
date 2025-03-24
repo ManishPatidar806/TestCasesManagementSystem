@@ -7,21 +7,21 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class TestCaseDTO {
+
     private String id;
     @NotEmpty(message = "Titile is required")
     private String title;
 
     private String description;
 
-    @NotNull(message = "Status Can't be Null")
-    @ValueOfEnum(enumClass = Status.class, message = "Allowed values: Pending,InProgress,Passed,Failed")
+    @NotNull(message = "Status cannot be null")
+    @ValueOfEnum(enumClass = Status.class, message = "Permissible values: Pending, InProgress, Passed, Failed")
     private String status;
 
-    @NotNull(message = "Priority Can't be Null")
-    @ValueOfEnum(enumClass = Priority.class , message = "Allowed values: Low,Medium,High")
+    @NotNull(message = "Priority cannot be null")
+    @ValueOfEnum(enumClass = Priority.class, message = "Permissible values: Low, Medium, High")
     private String priority;
 
     private LocalDate createdAt;

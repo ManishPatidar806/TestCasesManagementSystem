@@ -1,4 +1,6 @@
-package com.testcase.test_case_management_system.Dto;
+package com.testcase.test_case_management_system.Dto.TestCaseResponse;
+
+import com.testcase.test_case_management_system.Dto.TestCaseDTO;
 
 import java.util.List;
 

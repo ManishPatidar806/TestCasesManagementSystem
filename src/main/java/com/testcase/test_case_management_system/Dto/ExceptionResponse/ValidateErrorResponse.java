@@ -1,9 +1,8 @@
-package com.testcase.test_case_management_system.Dto;
+package com.testcase.test_case_management_system.Dto.ExceptionResponse;
 
-import java.util.List;
 import java.util.Map;
 
-public class ErrorResponse {
+public class ValidateErrorResponse {
     private Map<String ,String> message;
     private boolean status ;
 

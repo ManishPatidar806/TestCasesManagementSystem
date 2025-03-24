@@ -1,7 +1,9 @@
-package com.testcase.test_case_management_system.Dto;
+package com.testcase.test_case_management_system.Dto.TestCaseResponse;
+
+import com.testcase.test_case_management_system.Dto.TestCaseDTO;
 
 public class TestCaseResponseDTO {
-    private  TestCaseDTO testCaseDTO;
+    private TestCaseDTO testCaseDTO;
     private boolean status;
     private String message;
 

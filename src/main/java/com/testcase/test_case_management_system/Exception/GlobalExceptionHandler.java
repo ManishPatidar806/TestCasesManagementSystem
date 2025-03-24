@@ -1,7 +1,10 @@
 package com.testcase.test_case_management_system.Exception;
 
-import com.testcase.test_case_management_system.Dto.ApiResponse;
-import com.testcase.test_case_management_system.Dto.ErrorResponse;
+import com.testcase.test_case_management_system.Controller.TestCaseController;
+import com.testcase.test_case_management_system.Dto.ExceptionResponse.ApiResponse;
+import com.testcase.test_case_management_system.Dto.ExceptionResponse.ValidateErrorResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,8 +18,10 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<ApiResponse> handleResourceNotFoundException(ResourceNotFoundException exception) {
+    private final Logger logger = LoggerFactory.getLogger(TestCaseController.class);
+
+    @ExceptionHandler(value = TestCaseNotFoundException.class)
+    public ResponseEntity<ApiResponse> handleTestCaseNotFoundException(TestCaseNotFoundException exception) {
         ApiResponse response = new ApiResponse();
         response.setMessage(exception.getMessage());
         response.setStatus(false);
@@ -24,26 +29,26 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ValidateErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
         for (FieldError err : exception.getBindingResult().getFieldErrors()) {
             errors.put(err.getField(), err.getDefaultMessage());
         }
-        ErrorResponse response = new ErrorResponse();
+        ValidateErrorResponse response = new ValidateErrorResponse();
         response.setMessage(errors);
         response.setStatus(false);
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 
-    @ExceptionHandler(value = CommonException.class)
-    public ResponseEntity<ApiResponse> handleCommonException(CommonException ex) {
+
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<ApiResponse> handleException(Exception ex) {
         ApiResponse response = new ApiResponse();
-        response.setMessage(ex.getMessage());
+        logger.error("An unexpected error occurred: {}", ex.getMessage(), ex);
+        response.setMessage("Internal Server Error");
         response.setStatus(false);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-
     }
-
 
 }

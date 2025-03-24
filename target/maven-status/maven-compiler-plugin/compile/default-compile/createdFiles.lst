@@ -14,8 +14,8 @@ com/testcase/test_case_management_system/CustomAnnotation/ValueOfEnum.class
 com/testcase/test_case_management_system/Model/TestCase.class
 com/testcase/test_case_management_system/Dto/TestCaseDTO.class
 com/testcase/test_case_management_system/Dto/ErrorResponse.class
+com/testcase/test_case_management_system/Exception/CommonException.class
 com/testcase/test_case_management_system/Dto/TestCasesResponseDTO.class
 com/testcase/test_case_management_system/Dto/TestCaseResponseDTO.class
 com/testcase/test_case_management_system/Config/Mapper.class
-com/testcase/test_case_management_system/Dto/CommonException.class
 com/testcase/test_case_management_system/Exception/ResourceNotFoundException.class

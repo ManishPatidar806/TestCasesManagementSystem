@@ -7,8 +7,6 @@ import com.testcase.test_case_management_system.Enum.Status;
 
 import jakarta.validation.constraints.NotEmpty;
 
-import jakarta.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,7 +14,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Document("test_cases")
 public class TestCase {

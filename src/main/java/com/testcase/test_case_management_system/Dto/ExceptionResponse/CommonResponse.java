@@ -1,4 +1,4 @@
-package com.testcase.test_case_management_system.Dto;
+package com.testcase.test_case_management_system.Dto.ExceptionResponse;
 
 public class CommonResponse {
     private boolean status;
